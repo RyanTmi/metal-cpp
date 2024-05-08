@@ -6,4 +6,4 @@ Makefile
 
 .CMakeBuild/
 CMakeLists.txt
-.cmake
+*.cmake
