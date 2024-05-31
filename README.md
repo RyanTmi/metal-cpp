@@ -1,6 +1,6 @@
 ## About
 
-**metal-cpp** is a low overhead and header only C++ interface for Metal that helps developers add Metal functionality to graphics applications that are written in C++ (such as game engines). **metal-cpp** removes the need to create a shim and allows developers to call Metal functions directly from anywhere in their existing C++ code.
+**metal-cpp** is a low overhead and header only C++ interface for Metal that helps developers add Metal functionality to graphics applications that are written in C++ (such as game engines). **metal-cpp** removes the need to Create a shim and allows developers to call Metal functions directly from anywhere in their existing C++ code.
 
 
 ## Highlights
@@ -20,7 +20,7 @@
 |-|-|
 | macOS 14, iOS 17 | Add support for the **MetalFX** framework. <br/>Add all the APIs in macOS 14 and iOS 17. |
 | macOS 13.3, iOS 16.4 | Add all the APIs in macOS 13.3 and iOS 16.4. |
-| macOS 13, iOS 16| Add all the APIs in macOS 13 and iOS 16.<br />New optional `NS::SharedPtr<T>` type to assist with memory management.<br/>New convenience function to create a `CA::MetalLayer`.<br/>New `MTLSTR(str)` macro allows faster string creation from literals.<br/>Fix a problem with the signature of functions that take an array of pointers as input.<br/>Fix a problem with the signature of the `setGroups()` function in `MTL::LinkedFunctions`.|
+| macOS 13, iOS 16| Add all the APIs in macOS 13 and iOS 16.<br />New optional `NS::SharedPtr<T>` type to assist with memory management.<br/>New convenience function to Create a `CA::MetalLayer`.<br/>New `MTLSTR(str)` macro allows faster string creation from literals.<br/>Fix a problem with the signature of functions that take an array of pointers as input.<br/>Fix a problem with the signature of the `setGroups()` function in `MTL::LinkedFunctions`.|
 | macOS 12, iOS 15 | Initial release. |
 
 ## Memory Allocation Policy
@@ -38,15 +38,15 @@ When an object's `retainCount` reaches `0`, the object is immediately deallocate
 
 ### AutoreleasePools and Objects
 
-Several methods that create temporary objects in **metal-cpp** add them to an `AutoreleasePool` to help manage their lifetimes. In these situations, after **metal-cpp** creates the object, it adds it to an `AutoreleasePool`, which will release its objects when you release (or drain) it.
+Several methods that Create temporary objects in **metal-cpp** add them to an `AutoreleasePool` to help manage their lifetimes. In these situations, after **metal-cpp** creates the object, it adds it to an `AutoreleasePool`, which will release its objects when you release (or drain) it.
 
 By adding temporary objects to an AutoreleasePool, you do not need to explicitly call `release()` to deallocate them. Instead, you can rely on the `AutoreleasePool` to implicitly manage those lifetimes.
 
-If you create an object with a method that does not begin with `alloc`, `new`, `copy`, `mutableCopy`, or `Create`, the creating method adds the object to an autorelease pool.
+If you Create an object with a method that does not begin with `alloc`, `new`, `copy`, `mutableCopy`, or `Create`, the creating method adds the object to an autorelease pool.
 
 The typical scope of an `AutoreleasePool` is one frame of rendering for the main thread of the program. When the thread returns control to the RunLoop (an object responsible for receiving input and events from the windowing system), the pool is *drained*, releasing its objects.
 
-You can create and manage additional `AutoreleasePool`s at smaller scopes to reduce your program's working set, and you are required to do so for any additional threads your program creates.
+You can Create and manage additional `AutoreleasePool`s at smaller scopes to reduce your program's working set, and you are required to do so for any additional threads your program creates.
 
 If an object's lifecycle needs to be extended beyond the scope of an `AutoreleasePool` instance, you can claim ownership of it by calling its `retain()` method before the pool is drained. In these cases, you are responsible for making the appropriate `release()` call on the object after you no longer need it.
 
@@ -56,9 +56,9 @@ For more details about the application's RunLoop, please find its documentation 
 
 ### Use and debug AutoreleasePools
 
-When you create an autoreleased object and there is no enclosing `AutoreleasePool`, the object is leaked.
+When you Create an autoreleased object and there is no enclosing `AutoreleasePool`, the object is leaked.
 
-To prevent this, you normally create an `AutoreleasePool` in your program's `main` function, and in the entry function for every thread you create. You may also create additional `AutoreleasePool`s to avoid growing your program's high memory watermark when you create several autoreleased objects, such as when rendering.
+To prevent this, you normally Create an `AutoreleasePool` in your program's `main` function, and in the entry function for every thread you Create. You may also Create additional `AutoreleasePool`s to avoid growing your program's high memory watermark when you Create several autoreleased objects, such as when rendering.
 
 Use the Environment Variable `OBJC_DEBUG_MISSING_POOLS=YES` to print a runtime warning when an autoreleased object is leaked because no enclosing `AutoreleasePool` is available for its thread.
 
@@ -74,7 +74,7 @@ Shared pointers in **metal-cpp** are different from `std::shared_ptr<>` in that 
 
 The **metal-cpp** shared pointer’s destructor method always calls the `release()` method of the pointer that it wraps.
 
-You can create an `NS::SharedPtr<>` by calling the metal-cpp's factory method that's appropriate for your application's intent:
+You can Create an `NS::SharedPtr<>` by calling the metal-cpp's factory method that's appropriate for your application's intent:
 
 * You can **transfer** ownership of a pointer to a new shared pointer instance by calling the  `NS::TransferPtr()` factory function, which is the correct function for Resource Acquisition is Initialization (RAII) implementations because it doesn't increase the pointee's retain count.
 
@@ -283,7 +283,7 @@ printf( "pString = \"%s\"\n", pString->cString( NS::ASCIIStringEncoding ) );
 
 ####  Containers
 
-Use the CoreFoundation framework to create `NS::Array` and `NS::Dictionary` instances.
+Use the CoreFoundation framework to Create `NS::Array` and `NS::Dictionary` instances.
 
 ```cpp
 MTL::AccelerationStructureTriangleGeometryDescriptor* pGeoDescriptor  = MTL::AccelerationStructureTriangleGeometryDescriptor::alloc()->init();
