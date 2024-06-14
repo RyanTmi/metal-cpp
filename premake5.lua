@@ -19,6 +19,15 @@ project "metal-cpp"
     filter { "system:macosx" }
         systemversion "14.0"
 
+        links {
+            "Metal.framework",
+            "MetalKit.framework",
+            "AppKit.framework",
+            "Foundation.framework",
+            "QuartzCore.framework",
+            "Cocoa.framework",
+        }
+
         xcodebuildsettings {
             ["USE_HEADERMAP"] = "NO",
             ["ALWAYS_SEARCH_USER_PATHS"] = "YES"
